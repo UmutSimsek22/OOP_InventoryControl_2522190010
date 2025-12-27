@@ -38,4 +38,42 @@ This project is an **Object-Oriented Inventory and Warehouse Control System** de
 4. Run the project and navigate to the localhost URL.
 
 ---
+
 *Developed by Umut Şimşek 2522190010 for the Fall 2024-2025 Semester.*
+
+
+
+classDiagram
+    class Product {
+        +int ProductId
+        +string Name
+        +string Category
+        +string Description
+        +double BasePrice
+    }
+
+    class Supplier {
+        +int SupplierId
+        +string CompanyName
+        +string Email
+        +string Phone
+    }
+
+    class InventoryItem {
+        +int Id
+        +int Quantity
+        +DateTime ExpirationDate
+        +string ShelfLocation
+        +double TotalValue
+        +Product ProductDetails
+        +Supplier SupplierDetails
+    }
+
+    class WarehouseData {
+        +static List~InventoryItem~ Items
+    }
+
+    %% Relationships (Composition)
+    InventoryItem *-- Product : ProductDetails (Composition)
+    InventoryItem *-- Supplier : SupplierDetails (Composition)
+    WarehouseData o-- InventoryItem : Aggregate List
