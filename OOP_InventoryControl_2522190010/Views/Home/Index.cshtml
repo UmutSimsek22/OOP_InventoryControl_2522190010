@@ -1,8 +1,65 @@
-﻿@{
-    ViewData["Title"]="Home Page";
-}
+﻿@model List<OOP_InventoryControl_2522190010.Models.InventoryItem>
+@{ ViewData["Title"] = "Depo Kontrol"; }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="alert alert-secondary d-flex justify-content-between align-items-center">
+        <h3 class="m-0">📦 Depo Yönetimi (Stage 2)</h3>
+        <span class="badge bg-success fs-5">Toplam Değer: @ViewBag.TotalValue.ToString("C2")</span>
+    </div>
+
+    <div class="mb-3">
+        <a href="/Home/Add" class="btn btn-primary">+ Yeni Ürün Ekle</a>
+    </div>
+
+    <form action="/Home/Index" method="get" class="card p-3 mb-3 bg-light">
+        <div class="row g-2">
+            <div class="col-md-6">
+                <input type="text" name="searchString" class="form-control" placeholder="Ürün adı veya kategori ara..." />
+            </div>
+            <div class="col-md-4">
+                <select name="sortOrder" class="form-select">
+                    <option value="">Varsayılan Sıralama</option>
+                    <option value="qty_desc">Stok Miktarı (Çoktan Aza)</option>
+                    <option value="date_asc">SKT (Yakın Tarih)</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-dark w-100">Uygula</button>
+            </div>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Ürün Adı</th>
+                <th>Kategori</th>
+                <th>Adet</th>
+                <th>Birim Fiyat</th>
+                <th>Raf</th>
+                <th>Tedarikçi</th>
+                <th>SKT</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td class="fw-bold">@item.ProductDetails.Name</td>
+                    <td>@item.ProductDetails.Category</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.ProductDetails.BasePrice.ToString("C2")</td>
+                    <td>@item.ShelfLocation</td>
+                    <td>@item.SupplierDetails.CompanyName</td>
+                    <td>@item.ExpirationDate.ToShortDateString()</td>
+                    <td>
+                        <a href="/Home/Delete?id=@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Silmek istiyor musunuz?');">Sil</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

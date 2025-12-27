@@ -1,0 +1,70 @@
+﻿@model OOP_InventoryControl_2522190010.Models.InventoryItem
+@{ ViewData["Title"] = "Ürün Ekle"; }
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>Yeni Ürün Girişi</h4>
+        </div>
+        <div class="card-body">
+            <form action="/Home/Add" method="post">
+                
+                <h5 class="text-secondary mt-2">Ürün Bilgileri</h5>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label>Ürün Adı:</label>
+                        <input type="text" name="ProductDetails.Name" class="form-control" required />
+                    </div>
+                    <div class="col">
+                        <label>Kategori:</label>
+                        <input type="text" name="ProductDetails.Category" class="form-control" required />
+                    </div>
+                </div>
+
+                <div class="row mb-2">
+                    <div class="col">
+                        <label>Birim Fiyat (TL):</label>
+                        <input type="number" name="ProductDetails.BasePrice" class="form-control" required />
+                    </div>
+                    <div class="col">
+                         <label>Açıklama:</label>
+                         <input type="text" name="ProductDetails.Description" class="form-control" />
+                    </div>
+                </div>
+
+                <h5 class="text-secondary mt-3">Depo Bilgileri</h5>
+                <div class="row mb-2">
+                    <div class="col">
+                        <label>Stok Adedi:</label>
+                        <input type="number" name="Quantity" class="form-control" required />
+                    </div>
+                    <div class="col">
+                        <label>Son Kullanma Tarihi:</label>
+                        <input type="date" name="ExpirationDate" class="form-control" required />
+                    </div>
+                    <div class="col">
+                        <label>Raf Konumu:</label>
+                        <input type="text" name="ShelfLocation" class="form-control" />
+                    </div>
+                </div>
+
+                <h5 class="text-secondary mt-3">Tedarikçi Bilgileri</h5>
+                <div class="row mb-3">
+                    <div class="col">
+                        <label>Firma Adı:</label>
+                        <input type="text" name="SupplierDetails.CompanyName" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label>Email:</label>
+                        <input type="email" name="SupplierDetails.Email" class="form-control" />
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100 py-2">💾 Kaydet</button>
+            </form>
+        </div>
+    </div>
+    <div class="mt-2 text-center">
+        <a href="/Home/Index" class="text-decoration-none">← Listeye Dön</a>
+    </div>
+</div>
