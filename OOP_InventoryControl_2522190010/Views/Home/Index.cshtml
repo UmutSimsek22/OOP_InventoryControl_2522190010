@@ -1,43 +1,76 @@
 ﻿@model List<OOP_InventoryControl_2522190010.Models.InventoryItem>
-@{ ViewData["Title"] = "Depo Kontrol"; }
+@{ ViewData["Title"] = "TeknoDepo"; }
 
 <div class="container mt-4">
-    <div class="alert alert-secondary d-flex justify-content-between align-items-center">
-        <h3 class="m-0">📦 Depo Yönetimi (Stage 2)</h3>
-        <span class="badge bg-success fs-5">Toplam Değer: @ViewBag.TotalValue.ToString("C2")</span>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">💾 TeknoStore Depo Yönetimi</h2>
+        <div class="card bg-light border-primary">
+            <div class="card-body py-2 px-4">
+                <strong>💰 Toplam Stok Değeri:</strong> 
+                <span class="text-success fs-5 ms-2">@ViewBag.TotalValue.ToString("C2")</span>
+            </div>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <a href="/Home/Add" class="btn btn-primary">+ Yeni Ürün Ekle</a>
+    <div class="card mb-4 border-success shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">🚀 FIFO Hızlı Satış (Otomatik Stok Düşme)</h5>
+        </div>
+        <div class="card-body bg-light">
+            <form action="/Home/SellFIFO" method="post" class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label class="fw-bold">Ürün Adı:</label>
+                    <input type="text" name="pName" class="form-control" placeholder="Örn: Laptop" required>
+                </div>
+                <div class="col-auto">
+                    <label class="fw-bold">Satılacak Adet:</label>
+                    <input type="number" name="qty" class="form-control" style="width: 100px;" required min="1">
+                </div>
+                <div class="col-auto align-self-end">
+                    <button type="submit" class="btn btn-success">✅ Satışı Onayla</button>
+                </div>
+                <div class="col-12">
+                    <small class="text-muted">* Sistem otomatik olarak en eski girişli üründen düşer.</small>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <form action="/Home/Index" method="get" class="card p-3 mb-3 bg-light">
-        <div class="row g-2">
-            <div class="col-md-6">
-                <input type="text" name="searchString" class="form-control" placeholder="Ürün adı veya kategori ara..." />
-            </div>
-            <div class="col-md-4">
-                <select name="sortOrder" class="form-select">
-                    <option value="">Varsayılan Sıralama</option>
-                    <option value="qty_desc">Stok Miktarı (Çoktan Aza)</option>
-                    <option value="date_asc">SKT (Yakın Tarih)</option>
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-dark w-100">Uygula</button>
-            </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <a href="/Home/Add" class="btn btn-primary btn-lg">+ Yeni Ürün Ekle</a>
+        </div>
+        <div class="col-md-6 text-end">
+            <a href="/Home/Optimize" class="btn btn-outline-secondary">🧹 Depoyu Temizle</a>
+            <a href="/Home/RestockReport" class="btn btn-warning">⚠️ Sipariş Önerileri</a>
+        </div>
+    </div>
+
+    <form action="/Home/Index" method="get" class="row g-2 mb-3 bg-white p-2 border rounded">
+        <div class="col-md-6">
+            <input type="text" name="searchString" class="form-control" placeholder="Ürün adı veya kategori ara...">
+        </div>
+        <div class="col-md-4">
+            <select name="sortOrder" class="form-select">
+                <option value="">Sıralama Seçiniz...</option>
+                <option value="qty_desc">Stok Miktarı (Çoktan Aza)</option>
+                <option value="date_asc">SKT (Yakın Tarih)</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-dark w-100">Filtrele</button>
         </div>
     </form>
 
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-hover table-bordered align-middle">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
                 <th>Ürün Adı</th>
                 <th>Kategori</th>
-                <th>Adet</th>
-                <th>Birim Fiyat</th>
-                <th>Raf</th>
+                <th>Stok</th>
+                <th>Fiyat</th>
+                <th>Konum</th>
                 <th>Tedarikçi</th>
                 <th>SKT</th>
                 <th>İşlem</th>
@@ -49,14 +82,23 @@
                 <tr>
                     <td>@item.Id</td>
                     <td class="fw-bold">@item.ProductDetails.Name</td>
-                    <td>@item.ProductDetails.Category</td>
-                    <td>@item.Quantity</td>
+                    <td><span class="badge bg-info text-dark">@item.ProductDetails.Category</span></td>
+                    
+                    @if(item.Quantity < 5)
+                    {
+                        <td class="text-danger fw-bold bg-warning bg-opacity-10">@item.Quantity (Kritik!)</td>
+                    }
+                    else
+                    {
+                        <td class="text-success fw-bold">@item.Quantity</td>
+                    }
+
                     <td>@item.ProductDetails.BasePrice.ToString("C2")</td>
                     <td>@item.ShelfLocation</td>
                     <td>@item.SupplierDetails.CompanyName</td>
                     <td>@item.ExpirationDate.ToShortDateString()</td>
                     <td>
-                        <a href="/Home/Delete?id=@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Silmek istiyor musunuz?');">Sil</a>
+                        <a href="/Home/Delete?id=@item.Id" class="btn btn-sm btn-danger w-100">Sil</a>
                     </td>
                 </tr>
             }
