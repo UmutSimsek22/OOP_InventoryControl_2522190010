@@ -12,6 +12,19 @@
         </div>
     </div>
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger shadow-sm">
+            ⚠️ <strong>Hata:</strong> @TempData["Error"]
+        </div>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success shadow-sm">
+            ✅ <strong>Başarılı:</strong> @TempData["Success"]
+        </div>
+    }
+
     <div class="card mb-4 border-success shadow-sm">
         <div class="card-header bg-success text-white">
             <h5 class="mb-0">🚀 FIFO Hızlı Satış (Otomatik Stok Düşme)</h5>
@@ -28,9 +41,6 @@
                 </div>
                 <div class="col-auto align-self-end">
                     <button type="submit" class="btn btn-success">✅ Satışı Onayla</button>
-                </div>
-                <div class="col-12">
-                    <small class="text-muted">* Sistem otomatik olarak en eski girişli üründen düşer.</small>
                 </div>
             </form>
         </div>

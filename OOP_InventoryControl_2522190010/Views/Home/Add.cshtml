@@ -7,28 +7,31 @@
             <h4>Yeni Ürün Girişi</h4>
         </div>
         <div class="card-body">
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
             <form action="/Home/Add" method="post">
                 
                 <h5 class="text-secondary mt-2">Ürün Bilgileri</h5>
                 <div class="row mb-2">
                     <div class="col">
                         <label>Ürün Adı:</label>
-                        <input type="text" name="ProductDetails.Name" class="form-control" required />
+                        <input type="text" name="ProductDetails.Name" class="form-control" value="@Model?.ProductDetails?.Name" required />
+                        <span asp-validation-for="ProductDetails.Name" class="text-danger"></span>
                     </div>
                     <div class="col">
                         <label>Kategori:</label>
-                        <input type="text" name="ProductDetails.Category" class="form-control" required />
+                        <input type="text" name="ProductDetails.Category" class="form-control" value="@Model?.ProductDetails?.Category" required />
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col">
                         <label>Birim Fiyat (TL):</label>
-                        <input type="number" name="ProductDetails.BasePrice" class="form-control" required />
+                        <input type="number" name="ProductDetails.BasePrice" class="form-control" value="@Model?.ProductDetails?.BasePrice" required />
                     </div>
                     <div class="col">
                          <label>Açıklama:</label>
-                         <input type="text" name="ProductDetails.Description" class="form-control" />
+                         <input type="text" name="ProductDetails.Description" class="form-control" value="@Model?.ProductDetails?.Description" />
                     </div>
                 </div>
 
@@ -36,27 +39,34 @@
                 <div class="row mb-2">
                     <div class="col">
                         <label>Stok Adedi:</label>
-                        <input type="number" name="Quantity" class="form-control" required />
+                        <input type="number" name="Quantity" class="form-control" value="@Model?.Quantity" required />
                     </div>
                     <div class="col">
                         <label>Son Kullanma Tarihi:</label>
-                        <input type="date" name="ExpirationDate" class="form-control" required />
+                        <input type="date" name="ExpirationDate" class="form-control" value="@(Model?.ExpirationDate.ToString("yyyy-MM-dd"))" required />
                     </div>
                     <div class="col">
                         <label>Raf Konumu:</label>
-                        <input type="text" name="ShelfLocation" class="form-control" />
+                        <input type="text" name="ShelfLocation" class="form-control" value="@Model?.ShelfLocation" />
                     </div>
                 </div>
 
-                <h5 class="text-secondary mt-3">Tedarikçi Bilgileri</h5>
+                <h5 class="text-secondary mt-3">Tedarikçi Bilgileri (Zorunlu)</h5>
                 <div class="row mb-3">
-                    <div class="col">
+                    <div class="col-md-4">
                         <label>Firma Adı:</label>
-                        <input type="text" name="SupplierDetails.CompanyName" class="form-control" />
+                        <input type="text" name="SupplierDetails.CompanyName" class="form-control" value="@Model?.SupplierDetails?.CompanyName" required />
+                        <span asp-validation-for="SupplierDetails.CompanyName" class="text-danger"></span>
                     </div>
-                    <div class="col">
+                    <div class="col-md-4">
                         <label>Email:</label>
-                        <input type="email" name="SupplierDetails.Email" class="form-control" />
+                        <input type="email" name="SupplierDetails.Email" class="form-control" value="@Model?.SupplierDetails?.Email" required placeholder="ornek@firma.com" />
+                        <span asp-validation-for="SupplierDetails.Email" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Telefon:</label>
+                        <input type="tel" name="SupplierDetails.Phone" class="form-control" value="@Model?.SupplierDetails?.Phone" placeholder="0555..." />
+                        <span asp-validation-for="SupplierDetails.Phone" class="text-danger"></span>
                     </div>
                 </div>
 
