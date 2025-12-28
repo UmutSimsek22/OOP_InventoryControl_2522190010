@@ -5,7 +5,6 @@ namespace OOP_InventoryControl_2522190010.Controllers;
 
 public class HomeController : Controller
 {
-    
     public IActionResult Index(string searchString, string sortOrder)
     {
         var items = WarehouseData.Items;
@@ -33,10 +32,15 @@ public class HomeController : Controller
     {
         return View();
     }
-
+    
     [HttpPost]
     public IActionResult Add(InventoryItem newItem)
     {
+        if (!ModelState.IsValid)
+        {
+            return View(newItem);
+        }
+
         newItem.Id = WarehouseData.Items.Any() ? WarehouseData.Items.Max(i => i.Id) + 1 : 1;
         WarehouseData.Items.Add(newItem);
         return RedirectToAction("Index");
@@ -48,32 +52,33 @@ public class HomeController : Controller
         if (item != null) WarehouseData.Items.Remove(item);
         return RedirectToAction("Index");
     }
-
     
     public IActionResult RestockReport()
     {
         var criticalItems = WarehouseData.Items.Where(i => i.Quantity < 10).ToList();
         return View(criticalItems);
     }
-    
+
     public IActionResult Optimize()
     {
         WarehouseData.Items.RemoveAll(i => i.Quantity == 0);
         return RedirectToAction("Index");
     }
-    
     [HttpPost]
     public IActionResult SellFIFO(string pName, int qty)
     {
-        
         var batches = WarehouseData.Items
             .Where(i => i.ProductDetails.Name.ToLower().Contains(pName.ToLower()) && i.Quantity > 0)
-            .OrderBy(i => i.ExpirationDate) // ÖNEMLİ: Tarihe göre sırala (FIFO Mantığı)
+            .OrderBy(i => i.ExpirationDate)
             .ToList();
 
-        if (!batches.Any()) 
+        int totalStock = batches.Sum(x => x.Quantity);
+        
+        // Yetersiz Stok Kontrolü
+        if (totalStock < qty)
         {
-            return RedirectToAction("Index"); 
+            TempData["Error"] = $"Yetersiz Stok! İstenen: {qty}, Mevcut: {totalStock}";
+            return RedirectToAction("Index");
         }
 
         int remaining = qty;
@@ -92,9 +97,10 @@ public class HomeController : Controller
                 batch.Quantity = 0;
             }
         }
-        
+        //bitenleri temizle
         WarehouseData.Items.RemoveAll(i => i.Quantity == 0);
 
+        TempData["Success"] = "Satış başarıyla tamamlandı.";
         return RedirectToAction("Index");
     }
 }
