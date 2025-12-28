@@ -30,13 +30,7 @@ This project is an **Object-Oriented Inventory and Warehouse Control System** de
 - This project is designed to be compatible with **.NET 6.0 and .NET 8.0**.
 - If you are using **.NET 10**, please update the `<TargetFramework>` in the `.csproj` file accordingly.
 - `global.json` has been removed to ensure the project runs with your local SDK version.
-
-## 🛠 How to Run
-1. Clone the repository.
-2. Open the solution in **JetBrains Rider** or **Visual Studio**.
-3. Select the `http` configuration.
-4. Run the project and navigate to the localhost URL.
-
+  
 ---
 =======
 This project is an **Object-Oriented Inventory and Warehouse Control System** designed as part of Assignment 16. It simulates a real-world warehouse environment for a technology store ("TeknoStore"). The system allows tracking products, managing stock levels, and applying advanced algorithms for sales and restocking using **C#** and **ASP.NET Core MVC**.
