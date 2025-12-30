@@ -31,8 +31,6 @@ This project is an **Object-Oriented Inventory and Warehouse Control System** de
 - If you are using **.NET 10**, please update the `<TargetFramework>` in the `.csproj` file accordingly.
 - `global.json` has been removed to ensure the project runs with your local SDK version.
   
----
-=======
 This project is an **Object-Oriented Inventory and Warehouse Control System** designed as part of Assignment 16. It simulates a real-world warehouse environment for a technology store ("TeknoStore"). The system allows tracking products, managing stock levels, and applying advanced algorithms for sales and restocking using **C#** and **ASP.NET Core MVC**.
 
 ## 🚀 Features by Stages
