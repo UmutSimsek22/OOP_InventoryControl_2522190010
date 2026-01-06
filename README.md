@@ -45,7 +45,7 @@ This project is an **Object-Oriented Inventory and Warehouse Control System** de
 3. Select the `http` run configuration (to avoid SSL issues).
 4. Run the project and navigate to the localhost URL.
 
+
+<img width="1320" height="909" alt="umldiyagramı" src="https://github.com/user-attachments/assets/1cc946e1-619c-4fee-b005-7f02b8d306fc" />
 ---
-
 *Developed by Umut Şimşek 2522190010 for the Fall 2024-2025 Semester.*
-
