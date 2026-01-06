@@ -4,6 +4,9 @@ namespace OOP_InventoryControl_2522190010.Models;
 
 public class Supplier
 {
+/*
+ Tedarikçi bilgileri ve girilmesi zorunlu telefon ve email bilgilerin kontrolü 
+ */
     public int SupplierId { get; set; }
 
     [Required(ErrorMessage = "Firma adı alanı zorunludur.")]

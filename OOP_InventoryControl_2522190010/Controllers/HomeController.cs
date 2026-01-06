@@ -7,6 +7,12 @@ public class HomeController : Controller
 {
     public IActionResult Index(string searchString, string sortOrder)
     {
+    /*
+     Bu aşamadan ise kullanıcının aradığı ürünü daha kolay bulması için LINQ sorguları
+     ile sıralama algoritması ekledim.
+     Where ve OrderBy komutları sayesinde binlerce ürün olmasına rağmen 
+     anında arama ve sıralama yapılabilir
+     */
         var items = WarehouseData.Items;
 
         if (!string.IsNullOrEmpty(searchString))
@@ -16,7 +22,7 @@ public class HomeController : Controller
                                   || i.ProductDetails.Category.ToLower().Contains(searchString)).ToList();
         }
 
-        switch (sortOrder)
+        switch (sortOrder) 
         {
             case "qty_desc": items = items.OrderByDescending(i => i.Quantity).ToList(); break;
             case "date_asc": items = items.OrderBy(i => i.ExpirationDate).ToList(); break;
@@ -36,13 +42,16 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Add(InventoryItem newItem)
     {
-        if (!ModelState.IsValid)
+        if (!ModelState.IsValid) //Veri bütünlüğü için Server-side validation kullandığım için
+                                 //burada kullanıcının stoğu veya e-postayı yanlış girmesi
+                                 //durumunda hata vermesini sağlayan ve hatalı ürünün eklenmesini
+                                 //engelleyen kod bloğumuz bulunmakta
         {
             return View(newItem);
         }
 
         newItem.Id = WarehouseData.Items.Any() ? WarehouseData.Items.Max(i => i.Id) + 1 : 1;
-        WarehouseData.Items.Add(newItem);
+        WarehouseData.Items.Add(newItem);  
         return RedirectToAction("Index");
     }
 
@@ -67,16 +76,22 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult SellFIFO(string pName, int qty)
     {
+    /*
+     En teknik kısım bence burası, stok düşme işlemi yerine; FIFO(first in first out) kullandım
+     */
         var batches = WarehouseData.Items
             .Where(i => i.ProductDetails.Name.ToLower().Contains(pName.ToLower()) && i.Quantity > 0)
             .OrderBy(i => i.ExpirationDate)
-            .ToList();
+            .ToList();   //Son kullanma tarihi en yakın olanları getiriyorum
 
         int totalStock = batches.Sum(x => x.Quantity);
         
         // Yetersiz Stok Kontrolü
         if (totalStock < qty)
         {
+        /*
+         Burada satılmak istenen miktardan yeteri kadar var mı kontrolü yapılıyor 
+         */
             TempData["Error"] = $"Yetersiz Stok! İstenen: {qty}, Mevcut: {totalStock}";
             return RedirectToAction("Index");
         }
@@ -84,6 +99,10 @@ public class HomeController : Controller
         int remaining = qty;
         foreach (var batch in batches)
         {
+        /*
+         Burada ise satılmak istenen ürünü son kullanma tarihi en yakın üründen başlayacak 
+         şekilde satmaya başlıyoruz
+         */
             if (remaining <= 0) break;
 
             if (batch.Quantity >= remaining)
@@ -97,7 +116,7 @@ public class HomeController : Controller
                 batch.Quantity = 0;
             }
         }
-        //bitenleri temizle
+        //Optimizasyon için biten ürünlerin silinmesini sağlıyoruz 
         WarehouseData.Items.RemoveAll(i => i.Quantity == 0);
 
         TempData["Success"] = "Satış başarıyla tamamlandı.";

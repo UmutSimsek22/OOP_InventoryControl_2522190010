@@ -3,7 +3,17 @@
 public static class WarehouseData
 {
     // Teknoloji Mağazası Örnek Verileri
-    public static List<InventoryItem> Items = new List<InventoryItem>()
+    public static List<InventoryItem> Items = new List<InventoryItem>()  
+    
+    /*
+     IN MEMORY bir yapı kurdum böylece verileri RAM üzerinde tutabiliyoruz
+     Bu sayede SQL kurulumuna ihtiyaç olmadan kodu çalışır ve test edilebilir hale getirmek
+     daha kısa sürdü 
+     
+     Ayrıca bir kaç ürün ekledim böylece testlerimi daha rahat yapabilirim
+     */
+     
+    
     {
         // 1. Ürün: Laptop
         new InventoryItem 

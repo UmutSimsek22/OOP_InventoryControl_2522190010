@@ -2,6 +2,9 @@
 
 public class Product
 {
+/*
+ Ürünün değişmeyen özellikleri burada tutulur 
+ */
     public int ProductId { get; set; }
     public string Name { get; set; } = "";
     public string Category { get; set; } = "";
