@@ -31,27 +31,7 @@ This project is an **Object-Oriented Inventory and Warehouse Control System** de
 - If you are using **.NET 10**, please update the `<TargetFramework>` in the `.csproj` file accordingly.
 - `global.json` has been removed to ensure the project runs with your local SDK version.
   
----
-=======
 This project is an **Object-Oriented Inventory and Warehouse Control System** designed as part of Assignment 16. It simulates a real-world warehouse environment for a technology store ("TeknoStore"). The system allows tracking products, managing stock levels, and applying advanced algorithms for sales and restocking using **C#** and **ASP.NET Core MVC**.
-
-## 🚀 Features by Stages
-
-### Stage 1: Architecture Design
-- **Composition over Inheritance:** The `InventoryItem` class is composed of `Product` and `Supplier` objects to minimize coupling.
-- **Models:** Designed core classes (`Product`, `Supplier`, `InventoryItem`, `Order`) representing the warehouse domain.
-- **In-Memory Database:** Implemented a static `WarehouseData` class to simulate persistent storage.
-
-### Stage 2: Basic Implementation (CRUD)
-- **Product Management:** Add, remove, and list inventory items.
-- **Search Algorithm:** Filter products by *Name* or *Category* (Case-insensitive).
-- **Sorting Algorithm:** Sort inventory by *Quantity* (Descending) or *Expiration Date* (Ascending).
-- **Financial Calculation:** Dynamically computes the **Total Inventory Value**.
-
-### Stage 3: Advanced Algorithms
-- **FIFO (First-In-First-Out) Sales System:** Automatically deducts stock from the oldest batch (nearest Expiration Date) when a sale is made.
-- **Smart Restock Recommendations:** Detects critical stock levels (< 10) and generates supplier-specific order suggestions.
-- **Storage Optimization:** Automatically cleans up empty slots (Quantity = 0) to optimize warehouse space.
 
 ## 🛠 Technologies Used
 - **C#** (Backend Logic)
@@ -65,7 +45,7 @@ This project is an **Object-Oriented Inventory and Warehouse Control System** de
 3. Select the `http` run configuration (to avoid SSL issues).
 4. Run the project and navigate to the localhost URL.
 
+
+<img width="1320" height="909" alt="umldiyagramı" src="https://github.com/user-attachments/assets/1cc946e1-619c-4fee-b005-7f02b8d306fc" />
 ---
-
 *Developed by Umut Şimşek 2522190010 for the Fall 2024-2025 Semester.*
-
