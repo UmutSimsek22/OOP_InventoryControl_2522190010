@@ -1,4 +1,4 @@
-# 📦 Inventory and Warehouse Control System (Assignment 16)
+# 📦 Inventory and Warehouse Control System 
 
 **Student ID:** 2522190010  
 **Course:** Object Oriented Programming (OOP) Project  
