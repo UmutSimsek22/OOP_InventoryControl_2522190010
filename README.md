@@ -1,51 +1,60 @@
-# 📦 Inventory and Warehouse Control System 
+# 📦 Inventory and Warehouse Control System
 
-**Student ID:** 2522190010  
-**Course:** Object Oriented Programming (OOP) Project  
+**Student ID:** 2522190010
+**Course:** Object Oriented Programming (OOP) Project
 **Platform:** ASP.NET Core MVC (.NET 8.0)
 
 ## 📖 Project Description
-S4_FinalFixes
-This project is an **Object-Oriented Inventory and Warehouse Control System** developed as a final assignment. It simulates a warehouse environment ("TeknoStore") with features like stock tracking, FIFO sales logic, and supplier management.
+
+This project is an **Object-Oriented Inventory and Warehouse Control System** built for a technology store ("TeknoStore"). It simulates a real-world warehouse environment, allowing products and suppliers to be tracked, stock levels managed, and advanced sales/restocking algorithms applied using **C#** and **ASP.NET Core MVC**.
 
 ## 🚀 Features & Technical Details
 
-### 1. Architecture & Design (Stage 1)
-- **Composition over Inheritance:** `InventoryItem` class is composed of `Product` and `Supplier` objects.
-- **In-Memory Database:** Uses a static `WarehouseData` class for data persistence during runtime.
-- **UML Design:** Class structure adheres to OOP principles (Encapsulation, Composition).
+### 1. Architecture & Design
 
-### 2. Core Functionality (Stage 2)
-- **CRUD Operations:** Add, List, and Delete inventory items.
-- **Validation:** Server-side validation for required fields (Email format, Phone, etc.).
-- **Localization:** System configured for **Turkish Lira (₺)** currency format.
+- **Composition over Inheritance:** `InventoryItem` is composed of `Product` and `Supplier` objects rather than relying on inheritance hierarchies.
+- **In-Memory Database:** A static `WarehouseData` class handles data persistence during runtime.
+- **UML Design:** Class structure follows core OOP principles (Encapsulation, Composition) — see diagram below.
 
-### 3. Advanced Algorithms (Stage 3)
-- **FIFO Sales System:** Automatically sells the items with the nearest expiration date first.
+### 2. Core Functionality
+
+- **CRUD Operations:** Add, list, and delete inventory items.
+- **Validation:** Server-side validation for required fields (email format, phone, etc.).
+- **Localization:** Configured for Turkish Lira (₺) currency format.
+
+### 3. Advanced Algorithms
+
+- **FIFO Sales System:** Automatically sells items with the nearest expiration date first.
 - **Stock Optimization:** Automatically removes items with 0 quantity from the warehouse.
 - **Restock Reporting:** Generates alerts for critical stock levels (< 10 units).
 - **Safety Checks:** Prevents selling more items than currently available in stock.
 
-## ⚠️ Note on Versions
-- This project is designed to be compatible with **.NET 6.0 and .NET 8.0**.
-- If you are using **.NET 10**, please update the `<TargetFramework>` in the `.csproj` file accordingly.
-- `global.json` has been removed to ensure the project runs with your local SDK version.
-  
-This project is an **Object-Oriented Inventory and Warehouse Control System** designed as part of Assignment 16. It simulates a real-world warehouse environment for a technology store ("TeknoStore"). The system allows tracking products, managing stock levels, and applying advanced algorithms for sales and restocking using **C#** and **ASP.NET Core MVC**.
-
 ## 🛠 Technologies Used
+
 - **C#** (Backend Logic)
 - **ASP.NET Core MVC** (Web Framework)
 - **HTML5 / Bootstrap 5** (Frontend Styling)
 - **Git & GitHub** (Version Control)
 
+## 🤖 Development Process
+
+The system design, OOP architecture (composition, encapsulation), business logic, and all algorithms (FIFO sales, restocking, stock optimization) were designed and implemented independently. AI tools were used as a support resource for frontend styling (HTML/Bootstrap), with all decisions, planning, and implementation direction defined by the developer.
+
+## ⚠️ Note on Versions
+
+This project targets **.NET 8.0**. If running on a different SDK version, update the `<TargetFramework>` in the `.csproj` file accordingly.
+
 ## 📷 How to Run
+
 1. Clone the repository.
 2. Open the solution in **JetBrains Rider** or **Visual Studio**.
 3. Select the `http` run configuration (to avoid SSL issues).
 4. Run the project and navigate to the localhost URL.
 
+## 📐 UML Diagram
 
 <img width="1320" height="909" alt="umldiyagramı" src="https://github.com/user-attachments/assets/1cc946e1-619c-4fee-b005-7f02b8d306fc" />
+
 ---
-*Developed by Umut Şimşek 2522190010 for the Fall 2024-2025 Semester.*
+
+*Developed by Umut Şimşek — 2522190010 — Fall 2024-2025 Semester.*
